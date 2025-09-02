@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect With Me - Kgaugelo Mmakola</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="image.png" type="image/x-icon">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>KM</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="projects.html" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="hobbies.html" class="nav-link">Hobbies</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link active">Connect</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <div class="page-header">
+                <h1>📫 Let's Connect!</h1>
+                <p>Ready to collaborate, discuss ideas, or just say hello? I'd love to hear from you!</p>
+            </div>
+
+            <div class="content-section">
+                <h2>Get In Touch</h2>
+                <div class="contact-grid">
+                    <div class="contact-form-section">
+                        <div class="contact-form-card">
+                            <h3><i class="fas fa-envelope"></i> Send Me a Message</h3>
+                            <form class="contact-form" id="contactForm">
+                                <div class="form-group">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <select id="subject" name="subject" required>
+                                        <option value="">Select a topic...</option>
+                                        <option value="collaboration">Project Collaboration</option>
+                                        <option value="job">Job Opportunity</option>
+                                        <option value="mentoring">Mentoring Request</option>
+                                        <option value="speaking">Speaking Engagement</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message">Your Message</label>
+                                    <textarea id="message" name="message" rows="6"
+                                        placeholder="Tell me about your project, idea, or how I can help you..."
+                                        required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="newsletter" name="newsletter">
+                                        <span class="checkmark"></span>
+                                        Subscribe to my newsletter for tech insights and updates
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-large">
+                                    <i class="fas fa-paper-plane"></i> Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-section">
+                        <div class="contact-info-card">
+                            <h3><i class="fas fa-info-circle"></i> Contact Information</h3>
+
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong>Location</strong>
+                                    <p>South Africa<br>Available for remote work globally</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong>Response Time</strong>
+                                    <p>Usually within 24 hours<br>Monday - Friday: 9 AM - 6 PM SAST</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <i class="fas fa-language"></i>
+                                <div>
+                                    <strong>Languages</strong>
+                                    <p>English (Fluent)<br>Afrikaans (Conversational)<br>Spanish (Learning)</p>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <i class="fas fa-handshake"></i>
+                                <div>
+                                    <strong>Open To</strong>
+                                    <p>Freelance Projects, Full-time Opportunities,<br>Collaborations, Speaking
+                                        Engagements</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quick-contact-card">
+                            <h3><i class="fas fa-rocket"></i> Quick Actions</h3>
+
+                            <button class="quick-action-btn" onclick="scheduleCall()">
+                                <i class="fas fa-calendar-alt"></i>
+                                <div>
+                                    <strong>Schedule a Call</strong>
+                                    <small>Book a 30-minute chat</small>
+                                </div>
+                            </button>
+
+                            <button class="quick-action-btn" onclick="downloadResume()">
+                                <i class="fas fa-download"></i>
+                                <div>
+                                    <strong>Download Resume</strong>
+                                    <small>Get my latest CV</small>
+                                </div>
+                            </button>
+
+                            <button class="quick-action-btn" onclick="viewPortfolio()">
+                                <i class="fas fa-briefcase"></i>
+                                <div>
+                                    <strong>View Portfolio</strong>
+                                    <small>See my work samples</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Social Media & Professional Networks</h2>
+                <div class="social-grid">
+                    <a href="https://github.com/15kay" target="_blank" class="social-card github">
+                        <div class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="social-info">
+                            <h3>GitHub</h3>
+                            <p>Explore my code repositories, open source contributions, and development projects.</p>
+                            <span class="social-stats">50+ Repositories • 100+ Commits</span>
+                        </div>
+                        <div class="social-arrow">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/kgaugelo-mmakola-5b6122219/" target="_blank"
+                        class="social-card linkedin">
+                        <div class="social-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="social-info">
+                            <h3>LinkedIn</h3>
+                            <p>Connect professionally, view my career journey, and see recommendations.</p>
+                            <span class="social-stats">500+ Connections • Data Scientist</span>
+                        </div>
+                        <div class="social-arrow">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <a href="mailto:kg.mmakola@outook.com" class="social-card email">
+                        <div class="social-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="social-info">
+                            <h3>Email</h3>
+                            <p>Send me a direct email for business inquiries and collaboration opportunities.</p>
+                            <span class="social-stats">kg.mmakola@outook.com</span>
+                        </div>
+                        <div class="social-arrow">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <a href="#" target="_blank" class="social-card twitter">
+                        <div class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="social-info">
+                            <h3>Twitter</h3>
+                            <p>Follow my thoughts on AI, tech trends, and industry insights.</p>
+                            <span class="social-stats">@KgaugeloMmakola • Tech Enthusiast</span>
+                        </div>
+                        <div class="social-arrow">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <a href="#" target="_blank" class="social-card medium">
+                        <div class="social-icon">
+                            <i class="fab fa-medium"></i>
+                        </div>
+                        <div class="social-info">
+                            <h3>Medium</h3>
+                            <p>Read my articles on data science, AI, and software development.</p>
+                            <span class="social-stats">10+ Articles • AI & Data Science</span>
+                        </div>
+                        <div class="social-arrow">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+
+                    <a href="https://www.youtube.com/@dsitutoringacademy" target="_blank" class="social-card youtube">
+                        <div class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div class="social-info">
+                            <h3>YouTube</h3>
+                            <p>Watch my coding tutorials, project walkthroughs, and tech talks.</p>
+                            <span class="social-stats">Tech Tutorials • Project Demos</span>
+                        </div>
+                        <div class="social-arrow">
+                            <i class="fas fa-external-link-alt"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Collaboration Opportunities</h2>
+                <div class="collaboration-grid">
+                    <div class="collaboration-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Open Source Projects</h3>
+                        <p>I'm always interested in contributing to meaningful open source projects, especially in AI,
+                            data science, and educational technology.</p>
+                        <ul>
+                            <li>Machine Learning Libraries</li>
+                            <li>Educational Platforms</li>
+                            <li>Developer Tools</li>
+                            <li>Data Visualization</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="discussCollaboration('opensource')">Discuss
+                            Ideas</button>
+                    </div>
+
+                    <div class="collaboration-card">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h3>Speaking & Teaching</h3>
+                        <p>Available for conferences, workshops, and educational events. I love sharing knowledge about
+                            AI, data science, and career development.</p>
+                        <ul>
+                            <li>AI & Machine Learning</li>
+                            <li>Career in Tech</li>
+                            <li>Data Science Workflows</li>
+                            <li>Software Engineering</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="discussCollaboration('speaking')">Book
+                            Speaking</button>
+                    </div>
+
+                    <div class="collaboration-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Consulting & Freelance</h3>
+                        <p>Offering consulting services for AI implementation, data strategy, and software development
+                            projects.</p>
+                        <ul>
+                            <li>AI Strategy & Implementation</li>
+                            <li>Data Science Consulting</li>
+                            <li>Software Architecture</li>
+                            <li>Technical Mentoring</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="discussCollaboration('consulting')">Get Quote</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-section">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>What's the best way to reach you?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For professional inquiries, LinkedIn or the contact form above work best. For quick
+                                questions, feel free to reach out via email. I typically respond within 24 hours during
+                                business days.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Are you available for freelance projects?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! I'm open to freelance opportunities, especially projects involving AI, data science,
+                                or full-stack development. I prefer projects that align with my expertise and interests.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Do you offer mentoring services?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! I enjoy mentoring aspiring developers and data scientists. I offer both free
+                                community mentoring and paid one-on-one coaching sessions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Can you speak at our event?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>I'd love to! I'm available for conferences, meetups, and educational events. My favorite
+                                topics include AI in education, career development in tech, and practical data science.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>What technologies do you work with?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>My main stack includes Python, JavaScript, Flutter/Dart, and various AI/ML frameworks
+                                like TensorFlow and PyTorch. I also work with cloud platforms (AWS, Google Cloud) and
+                                modern web technologies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="widget">
+                <h3>Contact Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>24hr Response</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-globe"></i>
+                        <span>Global Remote</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Open to Collaborate</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span>5-Star Reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Current Availability</h3>
+                <div class="availability-status">
+                    <div class="status-indicator available"></div>
+                    <div class="status-info">
+                        <strong>Available for New Projects</strong>
+                        <p>Currently accepting freelance and consulting opportunities</p>
+                        <small>Updated: Today</small>
+                    </div>
+                </div>
+
+                <div class="availability-calendar">
+                    <h4>This Week</h4>
+                    <div class="calendar-week">
+                        <div class="calendar-day available">Mon</div>
+                        <div class="calendar-day busy">Tue</div>
+                        <div class="calendar-day available">Wed</div>
+                        <div class="calendar-day available">Thu</div>
+                        <div class="calendar-day busy">Fri</div>
+                    </div>
+                    <small>Green = Available for calls</small>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Recent Testimonials</h3>
+                <div class="testimonials">
+                    <div class="testimonial-item">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Excellent technical skills and great communication. Delivered beyond expectations!"</p>
+                        <small>- Sarah K., Project Manager</small>
+                    </div>
+
+                    <div class="testimonial-item">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Kgaugelo's mentoring helped me land my first data science role. Highly recommended!"</p>
+                        <small>- Michael T., Data Scientist</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot -->
+    <div id="chatbot-container">
+        <button id="chat-button" class="chat-button">
+            <i class="fas fa-comments"></i>
+        </button>
+        
+        <div id="chat-window" class="chat-window">
+            <div class="chat-header">
+                <h4>Professional Assistant</h4>
+                <button id="close-chat" class="close-chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    <p>Good day! I am Kgaugelo's professional virtual assistant. How may I assist you with your inquiry today?</p>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Inquire about Mr. Mmakola's expertise, experience, or professional services..." maxlength="500">
+                <button id="send-message" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Contact form handling is now managed in script.js
+
+        function scheduleCall() {
+            showModal('Schedule a Call', `
+                <div class="schedule-modal">
+                    <h3>Book a 30-minute chat</h3>
+                    <p>Let's discuss your project, ideas, or how I can help you achieve your goals.</p>
+                    
+                    <div class="schedule-options">
+                        <button class="btn btn-primary" onclick="openCalendly()">
+                            <i class="fas fa-calendar-alt"></i> Open Calendar
+                        </button>
+                        <button class="btn btn-outline" onclick="closeModal()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                    
+                    <small>You'll be redirected to my calendar booking system</small>
+                </div>
+            `);
+        }
+
+        // downloadResume function is now handled in script.js
+
+        function viewPortfolio() {
+            window.location.href = 'projects.html';
+        }
+
+        function discussCollaboration(type) {
+            const subjects = {
+                'opensource': 'Open Source Collaboration',
+                'speaking': 'Speaking Engagement',
+                'consulting': 'Consulting Inquiry'
+            };
+
+            document.getElementById('subject').value = 'collaboration';
+            document.getElementById('message').value = `Hi Kgaugelo,\n\nI'm interested in discussing ${subjects[type]} opportunities. `;
+            document.getElementById('message').focus();
+
+            // Scroll to contact form
+            document.querySelector('.contact-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = element.querySelector('i');
+
+            faqItem.classList.toggle('active');
+
+            if (faqItem.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                answer.style.maxHeight = '0';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openCalendly() {
+            // In a real application, this would open Calendly or similar booking system
+            showNotification('Calendar booking system would open here! 📅');
+            closeModal();
+        }
+    </script>
+
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-form-card,
+        .contact-info-card,
+        .quick-contact-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .contact-form-card h3,
+        .contact-info-card h3,
+        .quick-contact-card h3 {
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+        }
+
+        .btn-large {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+
+        .contact-item i {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-top: 2px;
+            min-width: 20px;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quick-action-btn i {
+            font-size: 1.5rem;
+            color: #667eea;
+            min-width: 30px;
+        }
+
+        .quick-action-btn:hover i {
+            color: white;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border-left: 4px solid transparent;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .social-card.github {
+            border-left-color: #333;
+        }
+
+        .social-card.linkedin {
+            border-left-color: #0077b5;
+        }
+
+        .social-card.email {
+            border-left-color: #ea4335;
+        }
+
+        .social-card.twitter {
+            border-left-color: #1da1f2;
+        }
+
+        .social-card.medium {
+            border-left-color: #00ab6c;
+        }
+
+        .social-card.youtube {
+            border-left-color: #ff0000;
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .github .social-icon {
+            background: #333;
+        }
+
+        .linkedin .social-icon {
+            background: #0077b5;
+        }
+
+        .email .social-icon {
+            background: #ea4335;
+        }
+
+        .twitter .social-icon {
+            background: #1da1f2;
+        }
+
+        .medium .social-icon {
+            background: #00ab6c;
+        }
+
+        .youtube .social-icon {
+            background: #ff0000;
+        }
+
+        .social-info {
+            flex: 1;
+        }
+
+        .social-info h3 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .social-info p {
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .social-stats {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .social-arrow {
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        .collaboration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .collaboration-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #28a745;
+        }
+
+        .collaboration-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .collaboration-card i {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .collaboration-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+
+        .collaboration-card li {
+            padding: 5px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .collaboration-card li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .faq-section {
+            margin-top: 20px;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #e9ecef;
+        }
+
+        .faq-question h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .faq-question i {
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer p {
+            padding: 20px;
+            margin: 0;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .availability-status {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-top: 4px;
+        }
+
+        .status-indicator.available {
+            background: #28a745;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        .status-indicator.busy {
+            background: #dc3545;
+        }
+
+        .status-info strong {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .status-info p {
+            color: #666;
+            margin: 0 0 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .status-info small {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .availability-calendar {
+            margin-top: 20px;
+        }
+
+        .availability-calendar h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .calendar-week {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .calendar-day {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        .calendar-day.available {
+            background: #28a745;
+        }
+
+        .calendar-day.busy {
+            background: #6c757d;
+        }
+
+        .testimonials {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .testimonial-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .testimonial-stars {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-item p {
+            color: #333;
+            font-style: italic;
+            margin: 0 0 10px 0;
+        }
+
+        .testimonial-item small {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .schedule-modal {
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .schedule-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .collaboration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</body>
+
+</html>

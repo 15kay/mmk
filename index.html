@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kgaugelo Mmakola - Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="image.png" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>KM</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="projects.html" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="hobbies.html" class="nav-link">Hobbies</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Connect</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-image">
+                        <img src="image.png" alt="Kgaugelo Mmakola" id="profileImg">
+                        <div class="status-indicator online"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h1>Kgaugelo Mmakola</h1>
+                        <p class="title">Data Scientist & Software Engineer</p>
+                        <p class="location"><i class="fas fa-map-marker-alt"></i> South Africa</p>
+                        <div class="social-stats">
+                            <div class="stat">
+                                <span class="number">500+</span>
+                                <span class="label">Connections</span>
+                            </div>
+                            <div class="stat">
+                                <span class="number">15</span>
+                                <span class="label">Projects</span>
+                            </div>
+                            <div class="stat">
+                                <span class="number">3</span>
+                                <span class="label">Years Exp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="btn btn-primary" onclick="sendMessage()">Message</button>
+                    <button class="btn btn-secondary" onclick="followUser()">Follow</button>
+                    <button class="btn btn-outline" onclick="shareProfile()">Share</button>
+                </div>
+            </div>
+
+            <div class="welcome-post">
+                <div class="post-header">
+                    <img src="image.png" alt="Profile">
+                    <div class="post-info">
+                        <h3>Kgaugelo Mmakola</h3>
+                        <span class="post-time">Welcome to my digital space!</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <h2>💫 Welcome to My Digital World!</h2>
+                    <p>Hello! I'm a passionate Data Scientist and Software Engineer currently pursuing an Advanced Diploma in ICT Application Development at Walter Sisulu University. My journey revolves around creating AI-driven solutions that make a real impact.</p>
+                    
+                    <div class="highlight-cards">
+                        <div class="highlight-card">
+                            <i class="fas fa-brain"></i>
+                            <h4>AI & Data Science</h4>
+                            <p>Predictive modeling and AI-driven systems</p>
+                        </div>
+                        <div class="highlight-card">
+                            <i class="fas fa-code"></i>
+                            <h4>Software Development</h4>
+                            <p>Flutter apps and clean code principles</p>
+                        </div>
+                        <div class="highlight-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Financial Tech</h4>
+                            <p>NASDAQ predictions and advisory tools</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post-actions">
+                    <button class="action-btn" onclick="likePost(this)">
+                        <i class="far fa-heart"></i>
+                        <span class="like-count">42</span>
+                    </button>
+                    <button class="action-btn" onclick="toggleComments()">
+                        <i class="far fa-comment"></i>
+                        <span>8</span>
+                    </button>
+                    <button class="action-btn" onclick="sharePost()">
+                        <i class="far fa-share"></i>
+                        <span>Share</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="widget">
+                <h3>Quick Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Student at WSU</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>4th Place DIRISA</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code-branch"></i>
+                        <span>GitHub Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Tech Stack</h3>
+                <div class="tech-tags">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Flutter</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">AWS</span>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Recent Activity</h3>
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <i class="fas fa-code"></i>
+                        <span>Pushed to GitHub repository</span>
+                        <small>2 hours ago</small>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-star"></i>
+                        <span>Completed AI course module</span>
+                        <small>1 day ago</small>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-users"></i>
+                        <span>Connected with new developers</span>
+                        <small>3 days ago</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot -->
+    <div id="chatbot-container">
+        <button id="chat-button" class="chat-button">
+            <i class="fas fa-comments"></i>
+        </button>
+        
+        <div id="chat-window" class="chat-window">
+            <div class="chat-header">
+                <h4>Professional Assistant</h4>
+                <button id="close-chat" class="close-chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    <p>Good day! I am Kgaugelo's professional virtual assistant. How may I assist you with your inquiry today?</p>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Inquire about Mr. Mmakola's expertise, experience, or professional services..." maxlength="500">
+                <button id="send-message" class="send-button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
