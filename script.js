@@ -4,7 +4,7 @@ let isFollowing = false;
 let commentsVisible = false;
 
 // DOM Content Loaded Event
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeNavigation();
     initializeAnimations();
     initializeProfileImage();
@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeNavigation() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    
+
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function () {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-        
+
         // Close menu when clicking on a link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
@@ -37,7 +37,7 @@ function initializeNavigation() {
 function initializeAnimations() {
     // Add fade-in animation to elements
     const animatedElements = document.querySelectorAll('.profile-card, .welcome-post, .widget');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -47,7 +47,7 @@ function initializeAnimations() {
     }, {
         threshold: 0.1
     });
-    
+
     animatedElements.forEach(el => {
         observer.observe(el);
     });
@@ -57,30 +57,60 @@ function initializeAnimations() {
 function initializeProfileImage() {
     const profileImg = document.getElementById('profileImg');
     if (profileImg) {
-        profileImg.addEventListener('click', function() {
+        profileImg.addEventListener('click', function () {
             showImageModal();
         });
     }
 }
 
+async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const messagesDiv = document.getElementById("messages");
+    messagesDiv.innerHTML += `<div class="user"><b>You:</b> ${msg}</div>`;
+
+    input.value = "";
+
+    try {
+        const response = await fetch("https://mmk-agent.onrender.com/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: msg
+            })
+        });
+
+
+        const data = await response.json();
+        messagesDiv.innerHTML += `<div class="bot"><b>Bot:</b> ${data.reply}</div>`;
+    } catch (error) {
+        messagesDiv.innerHTML += `<div class="bot"><b>Bot:</b> Sorry, I couldn't reach the server.</div>`;
+    }
+
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
 // Like post functionality
 function likePost(button) {
     const heartIcon = button.querySelector('i');
     const likeCountSpan = button.querySelector('.like-count');
-    
+
     if (heartIcon.classList.contains('far')) {
         // Like the post
         heartIcon.classList.remove('far');
         heartIcon.classList.add('fas');
         button.classList.add('liked');
         likeCount++;
-        
+
         // Add animation
         heartIcon.style.transform = 'scale(1.3)';
         setTimeout(() => {
             heartIcon.style.transform = 'scale(1)';
         }, 200);
-        
+
         showNotification('Post liked! ❤️');
     } else {
         // Unlike the post
@@ -88,10 +118,10 @@ function likePost(button) {
         heartIcon.classList.add('far');
         button.classList.remove('liked');
         likeCount--;
-        
+
         showNotification('Post unliked');
     }
-    
+
     if (likeCountSpan) {
         likeCountSpan.textContent = likeCount;
     }
@@ -100,7 +130,7 @@ function likePost(button) {
 // Follow user functionality
 function followUser() {
     const followBtn = document.querySelector('.btn-secondary');
-    
+
     if (!isFollowing) {
         followBtn.textContent = 'Following';
         followBtn.style.background = '#4CAF50';
@@ -136,8 +166,8 @@ function sendMessage() {
             </div>
         </form>
     `);
-    
-    document.getElementById('messageForm').addEventListener('submit', function(e) {
+
+    document.getElementById('messageForm').addEventListener('submit', function (e) {
         e.preventDefault();
         showNotification('Message sent successfully! 📧');
         closeModal();
@@ -162,32 +192,40 @@ function shareProfile() {
 // Share post functionality
 function sharePost() {
     const shareOptions = [
-        { name: 'Copy Link', action: () => {
-            copyToClipboard(window.location.href);
-            showNotification('Link copied to clipboard! 📋');
-        }},
-        { name: 'Twitter', action: () => {
-            window.open(`https://twitter.com/intent/tweet?text=Check out this amazing portfolio!&url=${encodeURIComponent(window.location.href)}`);
-        }},
-        { name: 'LinkedIn', action: () => {
-            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`);
-        }},
-        { name: 'Facebook', action: () => {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`);
-        }}
+        {
+            name: 'Copy Link', action: () => {
+                copyToClipboard(window.location.href);
+                showNotification('Link copied to clipboard! 📋');
+            }
+        },
+        {
+            name: 'Twitter', action: () => {
+                window.open(`https://twitter.com/intent/tweet?text=Check out this amazing portfolio!&url=${encodeURIComponent(window.location.href)}`);
+            }
+        },
+        {
+            name: 'LinkedIn', action: () => {
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`);
+            }
+        },
+        {
+            name: 'Facebook', action: () => {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`);
+            }
+        }
     ];
-    
-    const shareMenu = shareOptions.map(option => 
+
+    const shareMenu = shareOptions.map(option =>
         `<button class="share-option" onclick="${option.action.toString().slice(6, -1)}; closeModal();">${option.name}</button>`
     ).join('');
-    
+
     showModal('Share Post', `<div class="share-menu">${shareMenu}</div>`);
 }
 
 // Toggle comments functionality
 function toggleComments() {
     const commentsSection = document.getElementById('commentsSection');
-    
+
     if (!commentsSection) {
         // Create comments section if it doesn't exist
         const welcomePost = document.querySelector('.welcome-post');
@@ -217,7 +255,7 @@ function toggleComments() {
         `;
         welcomePost.insertAdjacentHTML('beforeend', commentsHTML);
     }
-    
+
     const comments = document.getElementById('commentsSection');
     if (commentsVisible) {
         comments.style.display = 'none';
@@ -242,7 +280,7 @@ function handleCommentSubmit(event) {
 function addComment(author, text) {
     const commentsSection = document.getElementById('commentsSection');
     const commentForm = commentsSection.querySelector('.comment-form');
-    
+
     const newComment = document.createElement('div');
     newComment.className = 'comment';
     newComment.innerHTML = `
@@ -253,7 +291,7 @@ function addComment(author, text) {
             <small>Just now</small>
         </div>
     `;
-    
+
     commentsSection.insertBefore(newComment, commentForm);
 }
 
@@ -274,28 +312,28 @@ function copyToClipboard(text) {
 function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
-    
+
     const icons = {
         success: 'fas fa-check-circle',
         error: 'fas fa-exclamation-circle',
         warning: 'fas fa-exclamation-triangle',
         info: 'fas fa-info-circle'
     };
-    
+
     const colors = {
         success: 'linear-gradient(45deg, #667eea, #764ba2)',
         error: 'linear-gradient(45deg, #f44336, #d32f2f)',
         warning: 'linear-gradient(45deg, #FF9800, #F57C00)',
         info: 'linear-gradient(45deg, #2196F3, #1976D2)'
     };
-    
+
     notification.innerHTML = `
         <div class="notification-content">
             <i class="${icons[type] || icons.success}"></i>
             <span>${message}</span>
         </div>
     `;
-    
+
     notification.style.cssText = `
         position: fixed;
         top: 100px;
@@ -311,9 +349,9 @@ function showNotification(message, type = 'success') {
         align-items: center;
         gap: 10px;
     `;
-    
+
     document.body.appendChild(notification);
-    
+
     // Remove notification after different durations based on type
     const duration = type === 'error' ? 6000 : type === 'warning' ? 5000 : 3000;
     setTimeout(() => {
@@ -341,7 +379,7 @@ function showModal(title, content) {
             </div>
         </div>
     `;
-    
+
     modal.style.cssText = `
         position: fixed;
         top: 0;
@@ -354,7 +392,7 @@ function showModal(title, content) {
         align-items: center;
         z-index: 10000;
     `;
-    
+
     document.body.appendChild(modal);
     document.body.style.overflow = 'hidden';
 }
@@ -371,7 +409,7 @@ function closeModal() {
 function showImageModal() {
     const profileImg = document.getElementById('profileImg');
     const imgSrc = profileImg.src;
-    
+
     showModal('Profile Picture', `
         <div class="image-modal">
             <img src="${imgSrc}" alt="Profile Picture" style="max-width: 100%; border-radius: 10px;">
@@ -385,11 +423,11 @@ function showImageModal() {
 // Typing effect for welcome message
 function initializeTypingEffect() {
     const typingElements = document.querySelectorAll('.typing-effect');
-    
+
     typingElements.forEach(element => {
         const text = element.textContent;
         element.textContent = '';
-        
+
         let i = 0;
         const typeWriter = () => {
             if (i < text.length) {
@@ -398,7 +436,7 @@ function initializeTypingEffect() {
                 setTimeout(typeWriter, 50);
             }
         };
-        
+
         typeWriter();
     });
 }
@@ -449,28 +487,28 @@ function initializeEmailJS() {
 function initializeContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Get form data
             const formData = new FormData(contactForm);
             const name = formData.get('name');
             const email = formData.get('email');
             const subject = formData.get('subject') || 'Portfolio Contact';
             const message = formData.get('message');
-            
+
             // Validate required fields
             if (!name || !email || !message) {
                 showNotification('Please fill in all required fields! ⚠️', 'error');
                 return;
             }
-            
+
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            
+
             submitBtn.innerHTML = '<div class="loading"></div> Sending...';
             submitBtn.disabled = true;
-            
+
             // Check if EmailJS is available
             if (typeof emailjs !== 'undefined' && EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY') {
                 // Send actual email via EmailJS
@@ -481,18 +519,18 @@ function initializeContactForm() {
                     message: message,
                     to_name: 'Kgaugelo' // Your name
                 };
-                
+
                 emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, templateParams)
-                    .then(function(response) {
+                    .then(function (response) {
                         console.log('Email sent successfully:', response);
                         showNotification(`Thank you ${name}! Your message has been sent successfully. 📧`);
                         contactForm.reset();
                     })
-                    .catch(function(error) {
+                    .catch(function (error) {
                         console.error('Email sending failed:', error);
                         showNotification('Sorry, there was an error sending your message. Please try again. ❌', 'error');
                     })
-                    .finally(function() {
+                    .finally(function () {
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
                     });
@@ -510,7 +548,7 @@ function initializeContactForm() {
 }
 
 // Initialize contact form and EmailJS when page loads
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeEmailJS();
     initializeContactForm();
 });
@@ -671,7 +709,7 @@ function downloadResume() {
             </div>
         </div>
     `);
-    
+
     // Also show the warning notification
     setTimeout(() => {
         showNotification('⚠️ CV downloads are restricted to recruiters only. Please contact me directly for access.', 'warning');
@@ -805,18 +843,18 @@ function scheduleCall() {
             </div>
         </div>
     `);
-    
+
     // Add event listeners for form validation
     setTimeout(() => {
         const nameInput = document.getElementById('bookerName');
         const emailInput = document.getElementById('bookerEmail');
         const bookingBtn = document.getElementById('bookingBtn');
-        
+
         function validateForm() {
             const isValid = nameInput.value.trim() && emailInput.value.trim() && document.querySelector('.slot-item.selected');
             bookingBtn.disabled = !isValid;
         }
-        
+
         if (nameInput && emailInput) {
             nameInput.addEventListener('input', validateForm);
             emailInput.addEventListener('input', validateForm);
@@ -833,7 +871,7 @@ function showScheduleTab(tabName) {
     // Remove active class from all tabs and tab buttons
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.schedule-tab').forEach(tab => tab.classList.remove('active'));
-    
+
     // Add active class to selected tab and button
     document.querySelector(`[onclick="showScheduleTab('${tabName}')"]`).classList.add('active');
     document.getElementById(`${tabName}-tab`).classList.add('active');
@@ -842,18 +880,18 @@ function showScheduleTab(tabName) {
 function selectTimeSlot(element, timeSlot) {
     // Remove selection from all slots
     document.querySelectorAll('.slot-item').forEach(slot => slot.classList.remove('selected'));
-    
+
     // Add selection to clicked slot
     element.classList.add('selected');
-    
+
     // Store selected time slot
     element.dataset.selectedTime = timeSlot;
-    
+
     // Trigger form validation
     const nameInput = document.getElementById('bookerName');
     const emailInput = document.getElementById('bookerEmail');
     const bookingBtn = document.getElementById('bookingBtn');
-    
+
     if (nameInput && emailInput && bookingBtn) {
         const isValid = nameInput.value.trim() && emailInput.value.trim();
         bookingBtn.disabled = !isValid;
@@ -866,37 +904,37 @@ function confirmBooking() {
     const email = document.getElementById('bookerEmail').value.trim();
     const purpose = document.getElementById('meetingPurpose').value.trim();
     const meetingType = document.querySelector('input[name="meetingType"]:checked').value;
-    
+
     if (!selectedSlot || !name || !email) {
         showNotification('Please fill in all required fields and select a time slot! ⚠️', 'error');
         return;
     }
-    
+
     const timeSlot = selectedSlot.dataset.selectedTime;
     const meetingTypeText = {
         'video': 'Video Call (Google Meet)',
         'phone': 'Phone Call',
         'inperson': 'In-Person Meeting (Johannesburg)'
     };
-    
+
     // Simulate booking confirmation
     const bookingBtn = document.getElementById('bookingBtn');
     const originalText = bookingBtn.innerHTML;
-    
+
     bookingBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking...';
     bookingBtn.disabled = true;
-    
+
     setTimeout(() => {
         closeModal();
-        
+
         // Show success notification
         showNotification(`🎉 Meeting booked successfully! You'll receive a confirmation email shortly.`, 'success');
-        
+
         // Simulate sending confirmation email
         setTimeout(() => {
             showNotification(`📧 Confirmation email sent to ${email}`, 'info');
         }, 2000);
-        
+
         // Log booking details (in real implementation, this would be sent to a backend)
         console.log('Booking Details:', {
             name,
@@ -906,7 +944,7 @@ function confirmBooking() {
             purpose: purpose || 'General discussion',
             bookedAt: new Date().toISOString()
         });
-        
+
         // Optional: Navigate to contact form for follow-up
         setTimeout(() => {
             const contactSection = document.querySelector('.contact-form-section');
@@ -918,7 +956,7 @@ function confirmBooking() {
                 }
             }
         }, 3000);
-        
+
     }, 2000);
 }
 
@@ -1047,7 +1085,7 @@ function viewProjectDetails(projectId) {
         const featuresHtml = project.features.map(feature => `<li>${feature}</li>`).join('');
         const techHtml = project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
         const githubLink = project.github ? `<a href="${project.github}" target="_blank" class="btn btn-outline" style="margin-top: 15px;"><i class="fab fa-github"></i> View on GitHub</a>` : '<p style="color: #666; margin-top: 15px;">Repository coming soon...</p>';
-        
+
         showModal(project.title, `
             <div class="project-details">
                 <div class="project-status-badge" style="background: ${project.status === 'Completed' ? '#4CAF50' : project.status === 'In Development' ? '#FF9800' : '#2196F3'}; color: white; padding: 5px 15px; border-radius: 15px; display: inline-block; margin-bottom: 15px;">
@@ -1146,7 +1184,7 @@ class AIIntelligence {
                 category: 'about',
                 embedding: null
             },
-            
+
             // Technical Skills - Programming Languages
             {
                 id: 'programming_languages',
@@ -1176,7 +1214,7 @@ class AIIntelligence {
                 category: 'skills',
                 embedding: null
             },
-            
+
             // AI/ML Expertise
             {
                 id: 'machine_learning',
@@ -1199,7 +1237,7 @@ class AIIntelligence {
                 category: 'skills',
                 embedding: null
             },
-            
+
             // Cloud & DevOps
             {
                 id: 'cloud_platforms',
@@ -1215,7 +1253,7 @@ class AIIntelligence {
                 category: 'skills',
                 embedding: null
             },
-            
+
             // Database Technologies
             {
                 id: 'databases',
@@ -1224,7 +1262,7 @@ class AIIntelligence {
                 category: 'skills',
                 embedding: null
             },
-            
+
             // Project Categories
             {
                 id: 'web_applications',
@@ -1254,7 +1292,7 @@ class AIIntelligence {
                 category: 'projects',
                 embedding: null
             },
-            
+
             // Professional Services
             {
                 id: 'consulting_services',
@@ -1270,7 +1308,7 @@ class AIIntelligence {
                 category: 'services',
                 embedding: null
             },
-            
+
             // Contact & Collaboration
             {
                 id: 'contact_information',
@@ -1286,7 +1324,7 @@ class AIIntelligence {
                 category: 'contact',
                 embedding: null
             },
-            
+
             // Education & Learning
             {
                 id: 'education_background',
@@ -1302,7 +1340,7 @@ class AIIntelligence {
                 category: 'education',
                 embedding: null
             },
-            
+
             // Personal Interests
             {
                 id: 'hobbies_interests',
@@ -1318,7 +1356,7 @@ class AIIntelligence {
                 category: 'hobbies',
                 embedding: null
             },
-            
+
             // Industry Insights
             {
                 id: 'technology_trends',
@@ -1335,7 +1373,7 @@ class AIIntelligence {
                 embedding: null
             }
         ];
-        
+
         // Conversation context and patterns for smarter interactions
         this.conversationContext = {
             lastTopic: null,
@@ -1344,7 +1382,7 @@ class AIIntelligence {
             sessionStartTime: Date.now(),
             messageCount: 0
         };
-        
+
         this.conversationPatterns = {
             greetings: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'greetings', 'howdy'],
             questions: ['what', 'how', 'why', 'when', 'where', 'who', 'can you', 'do you', 'are you', 'tell me', 'explain', 'describe'],
@@ -1354,7 +1392,7 @@ class AIIntelligence {
             technical: ['code', 'programming', 'development', 'algorithm', 'framework', 'library', 'api', 'database', 'server'],
             personal: ['about', 'yourself', 'background', 'experience', 'story', 'journey', 'interests', 'hobbies']
         };
-        
+
         this.smartResponses = {
             followUp: [
                 "Would you like to know more about any specific aspect?",
@@ -1386,7 +1424,7 @@ class AIIntelligence {
                 "Related to your earlier inquiry"
             ]
         };
-        
+
         // Intent recognition patterns for advanced NLP
         this.intentPatterns = {
             question: {
@@ -1414,7 +1452,7 @@ class AIIntelligence {
                 confidence: 0.7
             }
         };
-        
+
         // Entity extraction patterns for better understanding
         this.entityPatterns = {
             technologies: {
@@ -1438,15 +1476,15 @@ class AIIntelligence {
                 type: 'skill_inquiry'
             }
         };
-        
+
         this.initializeEmbeddings();
     }
-    
+
     // Simple embedding simulation using word frequency and semantic weights
     generateEmbedding(text) {
         const words = text.toLowerCase().split(/\s+/);
         const embedding = new Array(50).fill(0); // 50-dimensional embedding
-        
+
         // Semantic weight mapping for technical terms
         const semanticWeights = {
             'ai': 10, 'machine': 9, 'learning': 9, 'python': 8, 'javascript': 8,
@@ -1455,46 +1493,46 @@ class AIIntelligence {
             'contact': 5, 'email': 5, 'linkedin': 5, 'github': 5, 'education': 5,
             'photography': 4, 'music': 4, 'fitness': 4, 'hobbies': 4
         };
-        
+
         words.forEach((word, index) => {
             const weight = semanticWeights[word] || 1;
             const position = Math.abs(word.charCodeAt(0) - 97) % 50;
             embedding[position] += weight * (1 + Math.log(words.length - index));
         });
-        
+
         // Normalize embedding
         const magnitude = Math.sqrt(embedding.reduce((sum, val) => sum + val * val, 0));
         return magnitude > 0 ? embedding.map(val => val / magnitude) : embedding;
     }
-    
+
     initializeEmbeddings() {
         this.knowledgeBase.forEach(item => {
             item.embedding = this.generateEmbedding(item.content);
         });
     }
-    
+
     // Calculate cosine similarity between two embeddings
     cosineSimilarity(embedding1, embedding2) {
         if (!embedding1 || !embedding2) return 0;
-        
+
         let dotProduct = 0;
         let norm1 = 0;
         let norm2 = 0;
-        
+
         for (let i = 0; i < embedding1.length; i++) {
             dotProduct += embedding1[i] * embedding2[i];
             norm1 += embedding1[i] * embedding1[i];
             norm2 += embedding2[i] * embedding2[i];
         }
-        
+
         return dotProduct / (Math.sqrt(norm1) * Math.sqrt(norm2));
     }
-    
+
     // Vector search to find most relevant knowledge
     vectorSearch(query, threshold = 0.1) {
         const queryEmbedding = this.generateEmbedding(query);
         const results = [];
-        
+
         this.knowledgeBase.forEach(item => {
             const similarity = this.cosineSimilarity(queryEmbedding, item.embedding);
             if (similarity > threshold) {
@@ -1504,18 +1542,18 @@ class AIIntelligence {
                 });
             }
         });
-        
+
         // Sort by similarity score (descending)
         return results.sort((a, b) => b.similarity - a.similarity);
     }
-    
+
     // Enhanced intelligent response with conversation awareness
     generateIntelligentResponse(query) {
         const lowerQuery = query.toLowerCase();
-        
+
         // Advanced NLP analysis
         const analysis = this.analyzeQuery(query);
-        
+
         // Update conversation context
         this.conversationContext.messageCount++;
         this.conversationContext.conversationHistory.push({
@@ -1523,17 +1561,17 @@ class AIIntelligence {
             timestamp: Date.now(),
             analysis: analysis
         });
-        
+
         // Keep only last 10 messages for context
         if (this.conversationContext.conversationHistory.length > 10) {
             this.conversationContext.conversationHistory.shift();
         }
-        
+
         // Use intent-based response generation
         const intent = analysis.intent;
         const entities = analysis.entities;
         const patternType = analysis.conversationPattern;
-        
+
         // Handle intent-based responses with enhanced intelligence
         if (intent.type === 'greeting' && this.conversationContext.messageCount === 1) {
             const encouragement = this.getRandomResponse('encouragement');
@@ -1544,7 +1582,7 @@ class AIIntelligence {
                 followUp: ["What would you like to know about Kgaugelo?", "Tell me about his projects", "What are his main skills?"]
             };
         }
-        
+
         if (intent.type === 'compliment') {
             return {
                 response: "Thank you for the kind words! Mr. Mmakola takes great pride in his work and is always striving to deliver exceptional results. Is there anything specific about his work you'd like to explore?",
@@ -1553,7 +1591,7 @@ class AIIntelligence {
                 followUp: ["Show me his best projects", "What technologies does he use?", "How can I contact him?"]
             };
         }
-        
+
         // Handle comparison queries with intelligent responses
         if (intent.type === 'comparison' && entities.length > 0) {
             const techEntities = entities.filter(e => e.type === 'technology');
@@ -1566,7 +1604,7 @@ class AIIntelligence {
                 };
             }
         }
-        
+
         // Handle specific entity-based responses
         if (entities.length > 0) {
             const contactEntities = entities.filter(e => e.type === 'contact_method');
@@ -1578,7 +1616,7 @@ class AIIntelligence {
                     followUp: ["What services does he offer?", "What's his availability?", "How much does he charge?"]
                 };
             }
-            
+
             const techEntities = entities.filter(e => e.type === 'technology');
             if (techEntities.length > 0 && intent.type === 'question') {
                 const tech = techEntities[0].text;
@@ -1590,21 +1628,21 @@ class AIIntelligence {
                 };
             }
         }
-        
+
         // Perform vector search
         const searchResults = this.vectorSearch(query);
-        
+
         if (searchResults.length > 0) {
             const bestMatch = searchResults[0];
-            
+
             // Track user interests
             this.updateUserInterests(bestMatch.category);
             this.conversationContext.lastTopic = bestMatch.category;
-            
+
             // High confidence match with smart enhancements
             if (bestMatch.similarity > 0.3) {
                 let response = bestMatch.response;
-                
+
                 // Add contextual information based on conversation history
                 if (this.conversationContext.messageCount > 1) {
                     const contextualIntro = this.getRandomResponse('contextual');
@@ -1612,7 +1650,7 @@ class AIIntelligence {
                         response = `${contextualIntro} ${bestMatch.category}. ${response}`;
                     }
                 }
-                
+
                 return {
                     response: response,
                     confidence: bestMatch.similarity,
@@ -1620,12 +1658,12 @@ class AIIntelligence {
                     followUp: this.generateSmartFollowUp(bestMatch.category)
                 };
             }
-            
+
             // Moderate confidence - combine and enhance
             if (bestMatch.similarity > 0.15) {
                 const topResults = searchResults.slice(0, 2);
                 const combinedResponse = topResults.map(result => result.response).join(' ');
-                
+
                 return {
                     response: combinedResponse,
                     confidence: bestMatch.similarity,
@@ -1634,11 +1672,11 @@ class AIIntelligence {
                 };
             }
         }
-        
+
         // Enhanced contextual fallback
         return this.generateContextualResponse(query);
     }
-    
+
     // Helper methods for smart conversation handling
     detectConversationPattern(query) {
         for (const [pattern, keywords] of Object.entries(this.conversationPatterns)) {
@@ -1648,18 +1686,18 @@ class AIIntelligence {
         }
         return 'general';
     }
-    
+
     getRandomResponse(type) {
         const responses = this.smartResponses[type];
         return responses ? responses[Math.floor(Math.random() * responses.length)] : '';
     }
-    
+
     updateUserInterests(category) {
         if (!this.conversationContext.userInterests.includes(category)) {
             this.conversationContext.userInterests.push(category);
         }
     }
-    
+
     hasRelatedPreviousTopics(currentCategory) {
         const relatedCategories = {
             'skills': ['projects', 'education'],
@@ -1667,12 +1705,12 @@ class AIIntelligence {
             'about': ['education', 'hobbies'],
             'services': ['skills', 'projects']
         };
-        
-        return this.conversationContext.userInterests.some(interest => 
+
+        return this.conversationContext.userInterests.some(interest =>
             relatedCategories[currentCategory]?.includes(interest)
         );
     }
-    
+
     generateSmartFollowUp(category) {
         const categoryFollowUps = {
             'skills': "Would you like to see how these skills are applied in specific projects?",
@@ -1682,39 +1720,39 @@ class AIIntelligence {
             'education': "Are you interested in his approach to continuous learning and skill development?",
             'services': "Would you like to discuss how these services could benefit your specific needs?"
         };
-        
+
         return categoryFollowUps[category] || this.getRandomResponse('followUp');
     }
-    
+
     // Advanced NLP: Intent Recognition
     recognizeIntent(query) {
         const lowerQuery = query.toLowerCase();
         let bestIntent = { type: 'general', confidence: 0 };
-        
+
         for (const [intentType, intentData] of Object.entries(this.intentPatterns)) {
             let matchCount = 0;
             let totalPatterns = intentData.patterns.length;
-            
+
             for (const pattern of intentData.patterns) {
                 if (lowerQuery.includes(pattern.toLowerCase())) {
                     matchCount++;
                 }
             }
-            
+
             const confidence = (matchCount / totalPatterns) * intentData.confidence;
             if (confidence > bestIntent.confidence) {
                 bestIntent = { type: intentType, confidence };
             }
         }
-        
+
         return bestIntent;
     }
-    
+
     // Advanced NLP: Entity Extraction
     extractEntities(query) {
         const lowerQuery = query.toLowerCase();
         const entities = [];
-        
+
         for (const [entityGroup, entityData] of Object.entries(this.entityPatterns)) {
             for (const pattern of entityData.patterns) {
                 if (lowerQuery.includes(pattern.toLowerCase())) {
@@ -1727,16 +1765,16 @@ class AIIntelligence {
                 }
             }
         }
-        
+
         return entities;
     }
-    
+
     // Enhanced query analysis using intent and entities
     analyzeQuery(query) {
         const intent = this.recognizeIntent(query);
         const entities = this.extractEntities(query);
         const conversationPattern = this.detectConversationPattern(query.toLowerCase());
-        
+
         return {
             intent,
             entities,
@@ -1745,17 +1783,17 @@ class AIIntelligence {
             context: this.getQueryContext(entities)
         };
     }
-    
+
     calculateQueryComplexity(query) {
         const words = query.split(' ').length;
         const hasQuestionWords = ['what', 'how', 'why', 'when', 'where'].some(q => query.toLowerCase().includes(q));
         const hasMultipleTopics = query.split(' and ').length > 1 || query.split(' or ').length > 1;
-        
+
         if (words > 15 || hasMultipleTopics) return 'high';
         if (words > 8 || hasQuestionWords) return 'medium';
         return 'low';
     }
-    
+
     getQueryContext(entities) {
         const context = {
             hasTechnicalTerms: entities.some(e => e.type === 'technology'),
@@ -1763,13 +1801,13 @@ class AIIntelligence {
             hasContactIntent: entities.some(e => e.type === 'contact_method'),
             hasTimeframe: entities.some(e => e.type === 'timeframe')
         };
-        
+
         return context;
     }
-    
+
     generateContextualResponse(query) {
         const lowerQuery = query.toLowerCase();
-        
+
         // Enhanced pattern matching with smart responses
         if (lowerQuery.includes('how') && (lowerQuery.includes('contact') || lowerQuery.includes('reach'))) {
             return {
@@ -1779,7 +1817,7 @@ class AIIntelligence {
                 followUp: "Would you like to know about his availability for consulting or collaboration?"
             };
         }
-        
+
         if (lowerQuery.includes('experience') || lowerQuery.includes('years')) {
             return {
                 response: "Mr. Mmakola has extensive experience in the technology industry, with a strong background in AI/ML engineering and full-stack development. His experience spans multiple domains including web applications, mobile development, and enterprise AI solutions.",
@@ -1788,7 +1826,7 @@ class AIIntelligence {
                 followUp: "Would you like to know about specific projects or technologies he's worked with?"
             };
         }
-        
+
         if (lowerQuery.includes('what') && (lowerQuery.includes('do') || lowerQuery.includes('work'))) {
             return {
                 response: "Mr. Mmakola works as an AI/ML Engineer and Full-Stack Developer, specializing in machine learning solutions, data science, and enterprise web development. He creates innovative solutions that bridge the gap between complex AI technologies and practical business applications.",
@@ -1797,7 +1835,7 @@ class AIIntelligence {
                 followUp: "Would you like to know about specific technologies he works with or see examples of his projects?"
             };
         }
-        
+
         if (lowerQuery.includes('why') || lowerQuery.includes('motivation')) {
             return {
                 response: "Mr. Mmakola is passionate about leveraging technology to solve real-world problems. His motivation comes from the potential of AI and machine learning to transform industries and improve people's lives through innovative solutions.",
@@ -1806,7 +1844,7 @@ class AIIntelligence {
                 followUp: "Would you like to learn more about his approach to problem-solving or his vision for technology?"
             };
         }
-        
+
         if (lowerQuery.includes('learn') || lowerQuery.includes('study') || lowerQuery.includes('education')) {
             return {
                 response: "Mr. Mmakola believes in continuous learning and stays current with the latest technology trends. He combines formal education with hands-on experience, online courses, and active participation in the tech community.",
@@ -1815,7 +1853,7 @@ class AIIntelligence {
                 followUp: "Are you interested in his educational background or his approach to staying current with technology?"
             };
         }
-        
+
         if (lowerQuery.includes('future') || lowerQuery.includes('goals') || lowerQuery.includes('plans')) {
             return {
                 response: "Mr. Mmakola is focused on advancing AI/ML technologies and their practical applications. He aims to contribute to innovative projects that make a meaningful impact while continuing to grow his expertise in emerging technologies.",
@@ -1824,7 +1862,7 @@ class AIIntelligence {
                 followUp: "Would you like to know about specific areas of technology he's exploring or potential collaboration opportunities?"
             };
         }
-        
+
         if (lowerQuery.includes('help') || lowerQuery.includes('assist') || lowerQuery.includes('support')) {
             return {
                 response: "Mr. Mmakola can help with AI/ML implementation, full-stack development, technical consulting, and digital transformation projects. He offers expertise in everything from initial concept to deployment and optimization.",
@@ -1833,7 +1871,7 @@ class AIIntelligence {
                 followUp: "What specific type of project or challenge are you working on that might benefit from his expertise?"
             };
         }
-        
+
         if (lowerQuery.includes('cost') || lowerQuery.includes('price') || lowerQuery.includes('rate')) {
             return {
                 response: "For pricing and project estimates, it's best to contact Mr. Mmakola directly at kg.mmakola@outlook.com. He provides customized quotes based on project scope, timeline, and specific requirements.",
@@ -1842,7 +1880,7 @@ class AIIntelligence {
                 followUp: "Would you like guidance on how to prepare a project brief for the most accurate estimate?"
             };
         }
-        
+
         if (lowerQuery.includes('available') || lowerQuery.includes('availability') || lowerQuery.includes('free')) {
             return {
                 response: "For current availability and scheduling, please reach out to Mr. Mmakola directly at kg.mmakola@outlook.com. He'll be happy to discuss your project timeline and how he can accommodate your needs.",
@@ -1851,7 +1889,7 @@ class AIIntelligence {
                 followUp: "Would you like tips on how to effectively communicate your project requirements?"
             };
         }
-        
+
         // Smart suggestions based on conversation context
         if (this.conversationContext.messageCount > 3) {
             const suggestions = this.generateSmartSuggestions();
@@ -1862,7 +1900,7 @@ class AIIntelligence {
                 followUp: "What specific aspect would you like to explore?"
             };
         }
-        
+
         // Default intelligent response
         const encouragement = this.getRandomResponse('encouragement');
         return {
@@ -1872,11 +1910,11 @@ class AIIntelligence {
             followUp: this.getRandomResponse('followUp')
         };
     }
-    
+
     generateSmartSuggestions() {
         const interests = this.conversationContext.userInterests;
         const suggestions = [];
-        
+
         if (!interests.includes('skills')) {
             suggestions.push("his technical skills and expertise");
         }
@@ -1889,11 +1927,11 @@ class AIIntelligence {
         if (!interests.includes('contact')) {
             suggestions.push("how to get in touch with him");
         }
-        
+
         if (suggestions.length === 0) {
             return "Based on our conversation, you might want to explore his latest projects or discuss potential collaboration opportunities.";
         }
-        
+
         const randomSuggestions = suggestions.slice(0, 2);
         return `You might be interested in learning about ${randomSuggestions.join(' or ')}.`;
     }
@@ -1945,7 +1983,7 @@ class Chatbot {
                 "Please feel free to inquire about Mr. Mmakola's technical expertise, project experience, professional background, or preferred methods of professional communication."
             ]
         };
-        
+
         this.keywords = {
             greetings: ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'],
             about: ['about', 'background', 'who', 'biography', 'bio', 'story', 'experience'],
@@ -1955,29 +1993,29 @@ class Chatbot {
             hobbies: ['hobbies', 'interests', 'free time', 'photography', 'music', 'fitness', 'personal'],
             education: ['education', 'study', 'school', 'university', 'degree', 'academic', 'learning']
         };
-        
+
         this.initializeChatbot();
     }
-    
+
     initializeChatbot() {
         const chatButton = document.getElementById('chat-button');
         const chatWindow = document.getElementById('chat-window');
         const closeChat = document.getElementById('close-chat');
         const sendButton = document.getElementById('send-message');
         const chatInput = document.getElementById('chat-input');
-        
+
         if (chatButton) {
             chatButton.addEventListener('click', () => this.toggleChat());
         }
-        
+
         if (closeChat) {
             closeChat.addEventListener('click', () => this.closeChat());
         }
-        
+
         if (sendButton) {
             sendButton.addEventListener('click', () => this.sendMessage());
         }
-        
+
         if (chatInput) {
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -1986,7 +2024,7 @@ class Chatbot {
             });
         }
     }
-    
+
     toggleChat() {
         const chatWindow = document.getElementById('chat-window');
         if (chatWindow) {
@@ -1997,13 +2035,13 @@ class Chatbot {
             }
         }
     }
-    
+
     openChat() {
         const chatWindow = document.getElementById('chat-window');
         if (chatWindow) {
             chatWindow.classList.add('active');
             this.isOpen = true;
-            
+
             // Focus on input
             const chatInput = document.getElementById('chat-input');
             if (chatInput) {
@@ -2011,7 +2049,7 @@ class Chatbot {
             }
         }
     }
-    
+
     closeChat() {
         const chatWindow = document.getElementById('chat-window');
         if (chatWindow) {
@@ -2019,26 +2057,26 @@ class Chatbot {
             this.isOpen = false;
         }
     }
-    
+
     sendMessage() {
         const chatInput = document.getElementById('chat-input');
         const message = chatInput.value.trim();
-        
+
         if (message) {
             this.addMessage(message, 'user');
             chatInput.value = '';
-            
+
             // Show typing indicator with AI processing message
             this.showTypingIndicator('Processing with AI...');
-            
+
             // Generate response after a short delay
             setTimeout(() => {
                 this.hideTypingIndicator();
-                
+
                 // Get AI-powered response with metadata
                 const lowerMessage = message.toLowerCase();
                 let response, metadata = null;
-                
+
                 // Handle greetings first
                 const greetingKeywords = ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'];
                 if (greetingKeywords.some(keyword => lowerMessage.includes(keyword))) {
@@ -2052,7 +2090,7 @@ class Chatbot {
                     // Use AI Intelligence for sophisticated response generation
                     const aiResponse = this.aiIntelligence.generateIntelligentResponse(message);
                     metadata = aiResponse;
-                    
+
                     // Add confidence indicator for high-quality responses
                     if (aiResponse.confidence > 0.7) {
                         response = `${aiResponse.response} 🎯`;
@@ -2074,18 +2112,18 @@ class Chatbot {
                         }
                     }
                 }
-                
+
                 this.addMessage(response, 'bot', metadata);
             }, 1200 + Math.random() * 800); // Random delay between 1.2-2 seconds for AI processing
         }
     }
-    
+
     addMessage(text, sender, metadata = null) {
         const chatMessages = document.getElementById('chat-messages');
         if (chatMessages) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
-            
+
             // Add AI intelligence indicators for bot messages
             if (sender === 'bot' && metadata) {
                 let intelligenceIndicator = '';
@@ -2096,81 +2134,81 @@ class Chatbot {
                 } else if (metadata.source === 'contextual') {
                     intelligenceIndicator = '<span class="ai-indicator contextual" title="Contextual AI response">💡</span>';
                 }
-                
+
                 let messageContent = `<p>${text} ${intelligenceIndicator}</p>`;
-                
+
                 // Add follow-up suggestions if available
                 if (metadata.followUp) {
                     messageContent += `<div class="follow-up-suggestions">
                         <p class="follow-up-label">💡 You might also ask:</p>
                         <div class="suggestion-buttons">`;
-                    
+
                     // Handle both string and array types for followUp
                     const suggestions = Array.isArray(metadata.followUp) ? metadata.followUp : [metadata.followUp];
                     suggestions.forEach(suggestion => {
                         messageContent += `<button class="suggestion-btn" onclick="this.closest('.chatbot-container').querySelector('.chat-input').value='${suggestion}'; this.closest('.chatbot-container').querySelector('.send-btn').click();">${suggestion}</button>`;
                     });
-                    
+
                     messageContent += `</div></div>`;
                 }
-                
+
                 messageDiv.innerHTML = messageContent;
             } else {
                 messageDiv.innerHTML = `<p>${text}</p>`;
             }
-            
+
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     }
-    
+
     showTypingIndicator(customMessage = null) {
         const chatMessages = document.getElementById('chat-messages');
         if (chatMessages) {
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message bot-message typing-indicator';
             typingDiv.id = 'typing-indicator';
-            
+
             if (customMessage) {
                 typingDiv.innerHTML = `<p>${customMessage}<span class="dots">...</span> <span class="ai-processing">🤖</span></p>`;
             } else {
                 typingDiv.innerHTML = '<p>Typing<span class="dots">...</span></p>';
             }
-            
+
             chatMessages.appendChild(typingDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     }
-    
+
     hideTypingIndicator() {
         const typingIndicator = document.getElementById('typing-indicator');
         if (typingIndicator) {
             typingIndicator.remove();
         }
     }
-    
+
     generateResponse(message) {
         const lowerMessage = message.toLowerCase();
-        
+
         // Handle greetings first
         const greetingKeywords = ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'];
         if (greetingKeywords.some(keyword => lowerMessage.includes(keyword))) {
             const greetings = this.responses.greetings;
             return greetings[Math.floor(Math.random() * greetings.length)];
         }
-        
+
         // Handle thanks and goodbye
         if (lowerMessage.includes('thank')) {
             return "You're most welcome! I'm here to assist you with any questions about Mr. Mmakola's professional expertise and background. Feel free to ask anything else!";
         }
-        
+
         if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye')) {
             return "Thank you for visiting Mr. Mmakola's portfolio! Don't hesitate to reach out if you need anything else. Have a wonderful day!";
         }
-        
+
         // Use AI Intelligence for sophisticated response generation
         const aiResponse = this.aiIntelligence.generateIntelligentResponse(message);
-        
+
         // Add confidence indicator for high-quality responses
         if (aiResponse.confidence > 0.7) {
             return `${aiResponse.response} 🎯`;
@@ -2190,7 +2228,7 @@ class Chatbot {
 }
 
 // Initialize chatbot when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Check if chatbot elements exist before initializing
     if (document.getElementById('chatbot-container')) {
         new Chatbot();
