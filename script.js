@@ -63,36 +63,7 @@ function initializeProfileImage() {
     }
 }
 
-async function sendMessage() {
-    const input = document.getElementById("userInput");
-    const msg = input.value.trim();
-    if (!msg) return;
 
-    const messagesDiv = document.getElementById("messages");
-    messagesDiv.innerHTML += `<div class="user"><b>You:</b> ${msg}</div>`;
-
-    input.value = "";
-
-    try {
-        const response = await fetch("https://mmk-agent.onrender.com/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: msg
-            })
-        });
-
-
-        const data = await response.json();
-        messagesDiv.innerHTML += `<div class="bot"><b>Bot:</b> ${data.reply}</div>`;
-    } catch (error) {
-        messagesDiv.innerHTML += `<div class="bot"><b>Bot:</b> Sorry, I couldn't reach the server.</div>`;
-    }
-
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
 // Like post functionality
 function likePost(button) {
     const heartIcon = button.querySelector('i');
