@@ -190,7 +190,7 @@ fetch('chatbot.html')
     })
     .catch(error => console.error('Error loading chatbot:', error));
     async function sendMessage() {
-    const input = document.getElementById("userInput");
+    const input = document.getElementById("user-message");
     const msg = input.value.trim();
     if (!msg) return;
 
