@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="shortcut icon" href="image.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -67,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="profile-actions">
                     <button class="btn btn-primary" onclick="sendMessage()">Message</button>
                     <button class="btn btn-secondary" onclick="followUser()">Follow</button>
@@ -85,8 +87,10 @@
                 </div>
                 <div class="post-content">
                     <h2>💫 Welcome to My Digital World!</h2>
-                    <p>Hello! I'm a passionate Data Scientist and Software Engineer currently pursuing an Advanced Diploma in ICT Application Development at Walter Sisulu University. My journey revolves around creating AI-driven solutions that make a real impact.</p>
-                    
+                    <p>Hello! I'm a passionate Data Scientist and Software Engineer currently pursuing an Advanced Diploma in ICT Application Development at Walter Sisulu University. My journey revolves around creating AI-driven solutions that make a real
+                        impact.
+                    </p>
+
                     <div class="highlight-cards">
                         <div class="highlight-card">
                             <i class="fas fa-brain"></i>
@@ -105,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="post-actions">
                     <button class="action-btn" onclick="likePost(this)">
                         <i class="far fa-heart"></i>
@@ -177,33 +181,11 @@
         </div>
     </main>
 
-    <!-- Chatbot -->
-    <div id="chatbot-container">
-        <button id="chat-button" class="chat-button">
-            <i class="fas fa-comments"></i>
-        </button>
-        
-        <div id="chat-window" class="chat-window">
-            <div class="chat-header">
-                <h4>Professional Assistant</h4>
-                <button id="close-chat" class="close-chat">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div id="chat-messages" class="chat-messages">
-                <div class="message bot-message">
-                    <p>Good day! I am Kgaugelo's professional virtual assistant. How may I assist you with your inquiry today?</p>
-                </div>
-            </div>
-            <div class="chat-input-container">
-                <input type="text" id="chat-input" placeholder="Inquire about Mr. Mmakola's expertise, experience, or professional services..." maxlength="500">
-                <button id="send-message" class="send-button">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+
+    <div id="chatbot-placeholder"></div>
+
 
     <script src="script.js"></script>
 </body>
+
 </html>
